@@ -5,7 +5,7 @@ import Footer from '../../ShearComponents/ForHome/Footer';
 
 const RootLayout = () => {
     return (
-        <div>
+        <div className='bg-[#ECEEEF]'>
             <NavBar/>
             <Outlet/>
             <Footer/>

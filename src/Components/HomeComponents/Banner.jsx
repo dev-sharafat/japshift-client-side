@@ -6,18 +6,15 @@ import bannerimage3 from '../../assets/banner/banner3.png'
 import { Carousel } from "react-responsive-carousel";
 const Banner = () => {
   return (
-    <Carousel>
+    <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
       <div>
         <img src={bannerimage1} />
-        <p className="legend">Legend 1</p>
       </div>
       <div>
         <img src={bannerimage2} />
-        <p className="legend">Legend 2</p>
       </div>
       <div>
         <img src={bannerimage3} />
-        <p className="legend">Legend 3</p>
       </div>
     </Carousel>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import location from "../../assets/location-merchant.png";
 const MarchentSection = () => {
   return (
-    <div className="lg:p-12 bg-[#03373D] rounded-2xl mx-4 mb-10">
+    <div className="lg:p-12 bg-[#03373D] rounded-2xl mx-4 mb-10 bg-[url('assets/be-a-merchant-bg.png')] bg-no-repeat ">
       <div className="hero-content flex-col lg:flex-row-reverse gap-[100px] ">
         <img src={location} className="max-w-sm rounded-lg shadow-2xl" />
         <div>

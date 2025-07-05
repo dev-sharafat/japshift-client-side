@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import AuthLayOut from "../LayOuts/AuthLayOut/AuthLayOut";
 import Login from "../pages/Login/Login";
 import Sign from "../pages/SignIn/Sign";
+import Coverage from "../pages/Coverage/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,11 @@ const router = createBrowserRouter([
     {
       index:true,
       Component:Home
+    },
+    {
+      path:"/coverage",
+      Component:Coverage,
+      loader:()=>fetch("./CenterDatas.json")
     }
    ]
   },

@@ -1,20 +1,35 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import useAuth from "../../Hooks/useAuth";
 
 const Sign = () => {
+    const {createUser}=useAuth()
+    const {register,handleSubmit} = useForm()
+    const onSubmit =data=>{
+        console.log(data);
+        createUser(data.email,data.password)
+        .then(result =>{
+            console.log(result);
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+    }
   return (
     <div>
       <div className="space-y-2 mb-5">
         <h1 className="lg:text-5xl text-3xl font-extrabold">Create an Account</h1>
         <p className="font-semibold">Register with Profast</p>
       </div>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset className="fieldset">
           <label className="label font-bold text-lg">Email</label>
-          <input type="email" className="input w-full" placeholder="Email" />
+          <input type="email" className="input w-full" placeholder="Email" {...register("email")} />
           <label className="label font-bold text-lg">Password</label>
           <input
             type="password"
+            {...register("password")}
             className="input w-full"
             placeholder="Password"
           />

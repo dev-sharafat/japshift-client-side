@@ -1,25 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router";
 import JapSheftLogo from "../JapSheftLogo";
-
+import useAuth from "../../Hooks/useAuth";
 
 const NavBar = () => {
+  const {user} = useAuth()
   const navlinks = (
     <>
       <li>
         <NavLink>Services</NavLink>
       </li>
       <li>
-        <NavLink to='/coverage'>Coverage</NavLink>
+        <NavLink to="/coverage">Coverage</NavLink>
       </li>
-      <li>
-        <NavLink>About Us</NavLink>
-      </li>
+
       <li>
         <NavLink to="/sendParel">Pricing</NavLink>
       </li>
       <li>
         <NavLink>Be a Rider</NavLink>
+      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/deshboard">Deshboard</NavLink>
+          </li>
+        </>
+      )}
+
+      <li>
+        <NavLink>About Us</NavLink>
       </li>
     </>
   );
@@ -28,7 +38,7 @@ const NavBar = () => {
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-           <JapSheftLogo></JapSheftLogo>
+            <JapSheftLogo></JapSheftLogo>
           </div>
           <ul
             tabIndex={0}
@@ -37,14 +47,12 @@ const NavBar = () => {
             {navlinks}
           </ul>
         </div>
-       <div className="lg:block hidden">
-         <JapSheftLogo></JapSheftLogo>
-       </div>
+        <div className="lg:block hidden">
+          <JapSheftLogo></JapSheftLogo>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {navlinks}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navlinks}</ul>
       </div>
       <div className="navbar-end">
         <a className="btn">Button</a>

@@ -9,7 +9,7 @@ import PrivateRoutes from "../routes/PrivateRoutes";
 import SendParsel from "../pages/SendParsel/SendParsel";
 import MyParcel from "../pages/DeshboardPages/MyParcel";
 import DashboardLayout from "../LayOuts/DashBoard/DashboardLayout";
-import DeshboardHome from "../pages/DeshboardPages/DeshboardHome";
+import Payment from "../pages/DeshboardPages/Payment/Payment";
 
 
 const router = createBrowserRouter([
@@ -63,6 +63,10 @@ const router = createBrowserRouter([
         path:"myPercel",
         element:<MyParcel></MyParcel>
       },
+      {
+        path:'payment/:parcelId',
+        Component:Payment
+      }
     ],
   },
 ]);

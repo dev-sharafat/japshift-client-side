@@ -1,27 +1,46 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const {signIn,signInWithGoogle}=useAuth()
-    const {register,handleSubmit} = useForm()
-    const onSubmit =(data)=>{
-        console.log(data);
-        signIn(data.email,data.password)
-        .then(result =>{
-            console.log(result);
-        })
-        .then(error=>{
-            console.log(error);
-        })
-        signInWithGoogle()
-        .then(result=>console.log(result))
-        .catch(error=>{
-            console.log(error)
-        })
-
-    }
+  const { signIn, signInWithGoogle } = useAuth();
+  const { register, handleSubmit } = useForm();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
+  const onSubmit = (data) => {
+    console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You are Successfully Login",result,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from);
+      })
+      .then((error) => {
+        console.log(error);
+      });
+    signInWithGoogle()
+      .then((result) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You are Successfully Login",result,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from)
+      })
+      .catch((error) => {
+        Swal.fire(error.message);
+      });
+  };
   return (
     <div>
       <div className="space-y-2 mb-5">
@@ -31,7 +50,12 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset className="fieldset">
           <label className="label font-bold text-lg">Email</label>
-          <input type="email" className="input w-full" placeholder="Email" {...register("email")} />
+          <input
+            type="email"
+            className="input w-full"
+            placeholder="Email"
+            {...register("email")}
+          />
           <label className="label font-bold text-lg">Password</label>
           <input
             {...register("password")}

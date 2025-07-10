@@ -3,10 +3,12 @@ import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const MyParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate()
 //   const queryClient = useQueryClient();
 
   const { data: parcels = [], isLoading ,refetch } = useQuery({
@@ -36,7 +38,7 @@ const MyParcel = () => {
 
   const handlePay = (id) => {
     console.log("Proceed to payment for", id);
-    // Add payment logic
+    navigate(`/deshboard/payment/${id}`)
   };
 
   const handleDelete = async (id) => {

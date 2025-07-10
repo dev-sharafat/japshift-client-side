@@ -1,10 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import JapSheftLogo from "../JapSheftLogo";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
-  const {user} = useAuth()
+  const { user } = useAuth();
+  const { logOut } = useAuth();
   const navlinks = (
     <>
       <li>
@@ -33,6 +35,17 @@ const NavBar = () => {
       </li>
     </>
   );
+  const handleLogOut = () => {
+    logOut().then((result) => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "You are Successfully Logout",result,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    });
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -55,7 +68,9 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">{navlinks}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {
+          user? <Link className="btn btn-primary" onClick={handleLogOut}>Logut</Link>:<Link className="btn btn-primary" to="/login">Login</Link>
+        }
       </div>
     </div>
   );

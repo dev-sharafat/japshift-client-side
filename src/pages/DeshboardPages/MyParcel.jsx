@@ -70,7 +70,7 @@ const MyParcel = () => {
   if (isLoading) return <div className="p-4">Loading parcels...</div>;
 
   return (
-    <div className="overflow-x-auto shadow-md rounded-xl">
+    <div className="overflow-x-auto shadow-md w-full rounded-xl mt-5 mx-auto">
       <table className="table table-zebra w-full">
         <thead className="bg-base-200 text-base font-semibold">
           <tr>

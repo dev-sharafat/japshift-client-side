@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
 import JapSheftLogo from "../../ShearComponents/JapSheftLogo";
-// import { Outlet } from "react-router";
+import {
+  FaHome,
+  FaTruck,
+  FaHistory,
+  FaUserEdit,
+  FaSearchLocation,
+} from "react-icons/fa";
 
 const DashboardLayout = () => {
   return (
@@ -34,7 +40,6 @@ const DashboardLayout = () => {
           <div className="mx-2 flex-1 px-2 lg:hidden">Dashboard</div>
         </div>
         {/* Page content here */}
-        
 
         <Outlet></Outlet>
         {/* Page content here */}
@@ -48,13 +53,42 @@ const DashboardLayout = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
           <li>
-            <JapSheftLogo/>
+            <JapSheftLogo />
           </li>
+
           <li className="mt-2">
-            <NavLink to='/deshboard/myPercel'>My Parcels</NavLink>
+            <NavLink to="/deshboard">
+              <FaHome className="mr-2" />
+              Home
+            </NavLink>
           </li>
+
+          <li >
+            <NavLink to="/deshboard/myPercel">
+              <FaTruck className="mr-2" />
+              My Parcels
+            </NavLink>
+          </li>
+
           <li>
-            {/* <NavLink to="/dashboard/myParcels">My Parcels</NavLink> */}
+            <NavLink to="/deshboard/paymentHistory">
+              <FaHistory className="mr-2" />
+              Payment History
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/deshboard/track">
+              <FaSearchLocation className="mr-2" />
+              Track a Package
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/dashboard/profile">
+              <FaUserEdit className="mr-2" />
+              Update Profile
+            </NavLink>
           </li>
         </ul>
       </div>

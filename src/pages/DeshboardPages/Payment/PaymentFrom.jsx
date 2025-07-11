@@ -88,7 +88,7 @@ const PaymentFrom = () => {
             text: `Transaction ID: ${result.paymentIntent.id}`,
             confirmButtonText: "Go to My Parcels",
           }).then(() => {
-            navigate("/myPercel");
+            navigate("/deshboard/myPercel");
           });
           }
         }

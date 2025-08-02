@@ -3,17 +3,29 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosInstant from "../../Hooks/useAxiosInstant";
 
 const Login = () => {
   const { signIn, signInWithGoogle } = useAuth();
   const { register, handleSubmit } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosInstent = useAxiosInstant()
   const from = location.state?.from || "/";
   const onSubmit = (data) => {
     console.log(data);
     signIn(data.email, data.password)
-      .then((result) => {
+      .then(async(result) => {
+        const user = result?.user
+        const userInfo = {
+          email: user?.email,
+          role: "user",
+          created_at: new Date().toISOString(), // ✅ parentheses added
+          last_login_at: new Date().toISOString(), // ✅ parentheses added
+        };
+
+        const userRes = await axiosInstent.post("/users", userInfo);
+        console.log(userRes);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -26,8 +38,21 @@ const Login = () => {
       .then((error) => {
         console.log(error);
       });
+    
+  };
+  const handleLogin = () =>{
     signInWithGoogle()
-      .then((result) => {
+      .then(async(result) => {
+        const user = result?.user
+         const userInfo = {
+          email: user?.email,
+          role: "user",
+          created_at: new Date().toISOString(), // ✅ parentheses added
+          last_login_at: new Date().toISOString(), // ✅ parentheses added
+        };
+
+        const userRes = await axiosInstent.post("/users", userInfo);
+        console.log(userRes);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -35,12 +60,13 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        
         navigate(from)
       })
       .catch((error) => {
         Swal.fire(error.message);
       });
-  };
+  }
   return (
     <div>
       <div className="space-y-2 mb-5">
@@ -76,7 +102,7 @@ const Login = () => {
         </fieldset>
         <div className="text-center">
           <p className="text-lg mb-2">Or</p>
-          <button className="btn bg-white text-black btn-block border-[#e5e5e5]">
+          <button onClick={handleLogin} className="btn bg-white text-black btn-block border-[#e5e5e5]">
             <svg
               aria-label="Google logo"
               width="16"

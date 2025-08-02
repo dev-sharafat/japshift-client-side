@@ -5,17 +5,23 @@ import { useQuery } from "@tanstack/react-query";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
+  // console.log(typeof user.email);
   const axiosSecure = useAxiosSecure();
-  const { isPending, data: payments = {} } = useQuery({
+  const { isPending, data: payments = [] } = useQuery({
     queryKey: ["payments", user.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payments?email:${user.email}`);
+      const token = await user.getIdToken(); // ✅ get Firebase token
+      const res = await axiosSecure.get(`/payments?email=${user?.email}`, {
+        headers: {
+          Authorization: `${token}`, // ✅ send token for verification
+        },
+      });
       return res.data;
     },
   });
   console.log(payments);
-  if(isPending){
-    return "...loading payment data"
+  if (isPending) {
+    return "...loading payment data";
   }
   return (
     <div className="overflow-x-auto p-4">
@@ -34,17 +40,18 @@ const PaymentHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {payments.map((payment, index) => (
-            <tr key={payment._id}>
-              <td>{index + 1}</td>
-              <td className="text-sm">{payment.email}</td>
-              <td className="text-sm">{payment.parcelId}</td>
-              <td>${(payment.amount ).toFixed(2)}</td>
-              <td>{payment.paymentMethod || "Card"}</td>
-              <td className="text-xs break-all">{payment.transectionId}</td>
-              <td>{new Date(payment.date_at_string).toLocaleString()}</td>
-            </tr>
-          ))}
+          {Array.isArray(payments) &&
+            payments.map((payment, index) => (
+              <tr key={payment?._id}>
+                <td>{index + 1}</td>
+                <td className="text-sm">{payment?.email}</td>
+                <td className="text-sm">{payment?.parcelId}</td>
+                <td>${payment.amount.toFixed(2)}</td>
+                <td>{payment?.paymentMethod || "Card"}</td>
+                <td className="text-xs break-all">{payment?.transectionId}</td>
+                <td>{new Date(payment?.date_at_string).toLocaleString()}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

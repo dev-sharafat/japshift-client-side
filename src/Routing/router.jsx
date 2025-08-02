@@ -12,7 +12,7 @@ import DashboardLayout from "../LayOuts/DashBoard/DashboardLayout";
 import Payment from "../pages/DeshboardPages/Payment/Payment";
 import PaymentHistory from "../pages/DeshboardPages/PaymentHistory/PaymentHistory";
 import TrackParcel from "../pages/DeshboardPages/TrackParcel/TrackParcel";
-
+import BeARider from "../pages/BeARider/BeARider";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,14 @@ const router = createBrowserRouter([
         path: "/coverage",
         Component: Coverage,
         loader: () => fetch("./CenterDatas.json"),
+      },
+      {
+        path: "beArider",
+        element: (
+          <PrivateRoutes>
+            <BeARider />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "sendParel",
@@ -55,28 +63,28 @@ const router = createBrowserRouter([
   },
   {
     path: "/deshboard",
-    element:
+    element: (
       <PrivateRoutes>
         <DashboardLayout></DashboardLayout>
       </PrivateRoutes>
-    ,
+    ),
     children: [
       {
-        path:"myPercel",
-        element:<MyParcel></MyParcel>
+        path: "myPercel",
+        element: <MyParcel></MyParcel>,
       },
       {
-        path:'payment/:parcelId',
-        Component:Payment
+        path: "payment/:parcelId",
+        Component: Payment,
       },
       {
-        path:'paymentHistory',
-        Component:PaymentHistory
+        path: "paymentHistory",
+        Component: PaymentHistory,
       },
       {
-        path:'track',
-        Component:TrackParcel
-      }
+        path: "track",
+        Component: TrackParcel,
+      },
     ],
   },
 ]);

@@ -20,7 +20,7 @@ const NavBar = () => {
         <NavLink to="/sendParel">Pricing</NavLink>
       </li>
       <li>
-        <NavLink>Be a Rider</NavLink>
+        <NavLink to="/beArider">Be a Rider</NavLink>
       </li>
       {user && (
         <>

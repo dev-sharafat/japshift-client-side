@@ -4,11 +4,13 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosInstant from "../../Hooks/useAxiosInstant";
 
 const Sign = () => {
   const { createUser, updateUserInfo } = useAuth();
   const [uploadImage, setUploadeImage] = useState("");
   const navigate = useNavigate();
+  const axiosInstent = useAxiosInstant();
   const {
     register,
     handleSubmit,
@@ -17,9 +19,17 @@ const Sign = () => {
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result);
+        const userInfo = {
+          email: data?.email,
+          role: "user",
+          created_at: new Date().toISOString(), // ✅ parentheses added
+          last_login_at: new Date().toISOString(), // ✅ parentheses added
+        };
 
+        const userRes = await axiosInstent.post("/users", userInfo);
+        console.log(userRes);
         const updateInfo = {
           displayName: data.name,
           photoURL: uploadImage,
@@ -30,7 +40,7 @@ const Sign = () => {
             navigate("/");
           })
           .catch((error) => {
-            // Swal.fire(error.message)
+            Swal.fire(error.message);
             console.log(error);
           });
       })

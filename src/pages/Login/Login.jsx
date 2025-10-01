@@ -95,7 +95,7 @@ const Login = () => {
           <button className="btn bg-[#CAEB66] mt-4">Login</button>
           <p className="text-lg font-bold">
             Don’t have any account?
-            <Link to="/signin" className="btn btn-link text-lg">
+            <Link state={{from}} to="/signin" className="btn btn-link text-lg">
               Register
             </Link>
           </p>

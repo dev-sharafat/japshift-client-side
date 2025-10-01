@@ -13,6 +13,9 @@ import Payment from "../pages/DeshboardPages/Payment/Payment";
 import PaymentHistory from "../pages/DeshboardPages/PaymentHistory/PaymentHistory";
 import TrackParcel from "../pages/DeshboardPages/TrackParcel/TrackParcel";
 import BeARider from "../pages/BeARider/BeARider";
+import PendingRiders from "../pages/DeshboardPages/PendingRiders/PendingRiders";
+import ActiveRiders from "../pages/DeshboardPages/ActiveRiders/ActiveRiders";
+import ManageAdmins from "../pages/DeshboardPages/ManageAdmin/ManageAdmin";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,7 @@ const router = createBrowserRouter([
             <BeARider />
           </PrivateRoutes>
         ),
+        loader: () => fetch("./CenterDatas.json"),
       },
       {
         path: "sendParel",
@@ -85,6 +89,19 @@ const router = createBrowserRouter([
         path: "track",
         Component: TrackParcel,
       },
+      {
+        path:"pending-riders",
+        Component:PendingRiders
+        // element:<PendingRiders/>
+      },
+      {
+        path:"active-riders",
+        Component:ActiveRiders
+      },
+      {
+        path:"makeAdmin",
+        Component:ManageAdmins
+      }
     ],
   },
 ]);

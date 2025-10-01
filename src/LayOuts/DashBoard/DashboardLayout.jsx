@@ -7,9 +7,15 @@ import {
   FaHistory,
   FaUserEdit,
   FaSearchLocation,
+  FaUsers,
+  FaUserClock,
+  FaUserShield,
 } from "react-icons/fa";
+import useUserRole from "../../Hooks/useUserRole";
 
 const DashboardLayout = () => {
+  const { role, roleLoading } = useUserRole();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -63,7 +69,7 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
-          <li >
+          <li>
             <NavLink to="/deshboard/myPercel">
               <FaTruck className="mr-2" />
               My Parcels
@@ -90,6 +96,30 @@ const DashboardLayout = () => {
               Update Profile
             </NavLink>
           </li>
+          { !roleLoading  && role === "admin" &&
+            <>
+              <li>
+                <NavLink to="/deshboard/active-riders">
+                  <FaUsers className="mr-2" />
+                  Active Riders
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/deshboard/pending-riders">
+                  <FaUserClock className="mr-2" />
+                  Pending Riders
+                </NavLink>
+              </li>
+              {/* amdmin route */}
+              <li>
+                <NavLink to="/deshboard/makeAdmin">
+                  <FaUserShield className="mr-2" />
+                  Manage Admins
+                </NavLink>
+              </li>
+            </>
+          }
         </ul>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -9,8 +9,10 @@ import useAxiosInstant from "../../Hooks/useAxiosInstant";
 const Sign = () => {
   const { createUser, updateUserInfo } = useAuth();
   const [uploadImage, setUploadeImage] = useState("");
-  const navigate = useNavigate();
   const axiosInstent = useAxiosInstant();
+  const location = useLocation()
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
   const {
     register,
     handleSubmit,
@@ -37,7 +39,7 @@ const Sign = () => {
         updateUserInfo(updateInfo)
           .then(() => {
             console.log("profile name is update");
-            navigate("/");
+            navigate(from);
           })
           .catch((error) => {
             Swal.fire(error.message);

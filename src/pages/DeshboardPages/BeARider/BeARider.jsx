@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TrackParcel = () => {
+const BeARider = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const TrackParcel = () => {
     );
 };
 
-export default TrackParcel;
+export default BeARider;
